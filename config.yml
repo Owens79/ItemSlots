@@ -1,0 +1,9 @@
+Max_Odds: 50
+Max_Pay_Out: 5
+Machine_Marker: '[777]'
+Base_Odds: 5
+Base_Pay_Out: 2
+Built_Msg: Slot Machine Built
+Destory_Msg: Slot Machine Destroyed
+Win_Msg: You Win
+Lose_Msg: You Lose

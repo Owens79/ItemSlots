@@ -1,0 +1,22 @@
+name: ItemSlots
+main: at.Owens79.ItemSlots.ItemSlots
+version: (Beta) 2.0
+description: item based slot machine 
+
+
+permissions:
+    ItemSlots.*:
+        description: Gives full control
+        children:
+             ItemSlots.Build: true
+             ItemSlots.Destroy: true
+             ItemLsots.Use: true
+    ItemSlots.Build:
+        description: allows you to build slot machine
+        default: op
+    ItemSlots.Destroy:
+        description: allows you to destroy machines
+        default: op
+    ItemSlots.Use:
+        description: allows the use of a machine
+        default: true
