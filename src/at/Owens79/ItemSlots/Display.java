@@ -1,4 +1,4 @@
-package at.Oewns79.ItemSlots;
+package at.Owens79.ItemSlots;
 
 import java.util.logging.Logger;
 import org.bukkit.entity.Player;

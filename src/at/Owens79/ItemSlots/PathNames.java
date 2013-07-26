@@ -1,4 +1,4 @@
-package at.Oewns79.ItemSlots;
+package at.Owens79.ItemSlots;
 
 public class PathNames {
 
