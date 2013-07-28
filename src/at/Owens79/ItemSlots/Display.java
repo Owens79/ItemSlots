@@ -1,21 +1,24 @@
 package at.Owens79.ItemSlots;
 
 import java.util.logging.Logger;
+
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 
 public class Display {
 
 	public final Logger logger = Logger.getLogger("Minecraft");
-	
-	public ItemSlots plugin;
-	
-	Display(ItemSlots plugin) {
-		
+
+	private ItemSlots plugin;
+
+	public Display() {
+
+	}
+
+	public Display(ItemSlots plugin) {
+
 		this.plugin = plugin;
-		
-	}//Constructor
-	
+	}
 
 	/**********************************************
 	toCon()
@@ -30,18 +33,32 @@ public class Display {
 		
 	}//toCon()
 	
+	/**********************************************
+	toCon()
+	
+	@param int i
+	
+	Purpose: display information to the console
+	**********************************************/
 	public void toCon(int i) {
 		
 		this.logger.info(String.valueOf(i));
 	}
 	
+	/**********************************************
+	toCon()
+	
+	@param boolean b;
+	
+	Purpose: display information to the console
+	**********************************************/
 	public void toCon(boolean b) {
 		
 		this.logger.info(String.valueOf(b));
 	}
 
 	/*****************************************************
-	toPlayer()
+	toPlayer(Player player, String info)
 	
 	@param Player player: the player getting the message
 	
@@ -56,7 +73,7 @@ public class Display {
 	}//toPlayer
 
 	/*************************************************************
-	toBoth()
+	toBoth(Player player, String info)
 	
 	@param Player player: player receiving the information
 	
@@ -72,12 +89,10 @@ public class Display {
 	}
 
 	
-	/******************************************************** 
-	 enableMessage()
-	  
-	 @param pdFile
+	/********************************************************
+	 enableMessage(PluginDescriptionFile pdFile)
 	 
-	 Purpose: sends the enable message to the console
+	 @param PluginDescriptionFile pdFile
 	********************************************************/
 	public void enableMessage(PluginDescriptionFile pdFile) {
 
@@ -85,12 +100,10 @@ public class Display {
 	}
 
 	
-	/******************************************************** 
-	 disableMessage()
-	  
-	 @param pdFile
+	/********************************************************
+	 disableMessage(PluginDescriptionFile)
 	 
-	 Purpose: sends the disable message to the console
+	 @param PluginDescriptionFile pdFile
 	********************************************************/
 	public void disableMessage(PluginDescriptionFile pdFile) {
 
@@ -98,55 +111,50 @@ public class Display {
 	}
 
 	
-	/****************************************************************** 
-	 buildMessage()
-	  
-	 @param player
+	/********************************************************
+	 buildMessage(Player player)
 	 
-	 Purpose: sends a message to the player when a machine is built
-	******************************************************************/
+	 @param Player player
+	********************************************************/
 	public void buildMessage(Player player) {
 
 		toPlayer(player, plugin.getConfig().getString(PathNames.BUILT_MSG));
+		
+		toCon(plugin.getConfig().getString(PathNames.BUILT_MSG) + " by " + player.getDisplayName());
 	}
 
 	
-	/****************************************************************** 
-	 destroyMessage()
-	  
-	 @param player
+	/********************************************************
+	 destroyMessage(Player player)
 	 
-	 Purpose: sends a message to the player when a machine is destroyed
-	******************************************************************/
+	 @param Player player
+	********************************************************/
 	public void destroyMessage(Player player) {
 
 		toPlayer(player, plugin.getConfig().getString(PathNames.DESTROY_MSG));
+		
+		toCon(plugin.getConfig().getString(PathNames.DESTROY_MSG) + " by " + player.getDisplayName());
 	}
 
-	/****************************************************************** 
-	 winMessage()
-	  
-	 @param player
+	/********************************************************
+	 winMessage(Player player)
 	 
-	 Purpose: sends a message to the player they win
-	******************************************************************/
+	 @param Player player
+	********************************************************/
 	public void winMessage(Player player) {
 
 		toPlayer(player, plugin.getConfig().getString(PathNames.WIN_MSG));
 
 	}
 
-	/****************************************************************** 
-	 loseMessage()
-	  
-	 @param player
+	/********************************************************
+	 loseMessage(Player player)
 	 
-	 Purpose: sends a message to the player when they lose
-	******************************************************************/
+	 @param Player player
+	********************************************************/
 	public void loseMessage(Player player) {
 
 		toPlayer(player, plugin.getConfig().getString(PathNames.Lose_MSG));
 	}
 
-	
-}//Display
+}//Display Class
