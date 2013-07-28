@@ -2,7 +2,11 @@ package at.Owens79.ItemSlots;
 
 import java.util.Random;
 
+import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class SlotListener implements Listener {
 
@@ -10,13 +14,42 @@ public class SlotListener implements Listener {
 	
 	Random ran;
 	
+	Display display;
+	
 	SlotListener(ItemSlots itemSlots, Random ran) {
 		
 		this.plugin = itemSlots;
 		
 		this.ran = ran;
+		
+		this.display = new Display(itemSlots);
 	}
 
+	@EventHandler
+	public void construct (BlockPlaceEvent event) {
+		
+		Build build = new Build(plugin, event);
+		
+		if(build.isSignPlaced() && build.canBuild()) {
+
+			if(build.PickMachine(build.getFacing())){
+				
+				//display.toPlayer(event.getPlayer(), String.valueOf(build.PickMachine(build.getFacing())));
+				
+				this.display.buildMessage(event.getPlayer());
+				
+			}//if machine is built
+			
+		}//Lamp is placed AND player can build
+		
+	}//construct (BlockPlaceEvent event)
 	
-	
+	@EventHandler
+	public void play(PlayerInteractEvent event) {
+		
+		if(event.getClickedBlock().getType().equals(Material.LEVER)) {
+			
+			
+		}
+	}
 }//SlotsListener class 

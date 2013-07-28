@@ -4,25 +4,34 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.material.Lever;
 import org.bukkit.material.Sign;
 
+import at.Owens79.ItemSlots.Display;
+
+
 public class Local {
 
 	protected World world;
-
-	protected BlockPlaceEvent bpe;
-	protected PlayerInteractEvent pie;
-
+	private BlockPlaceEvent event;
+	
+	Display display;
+	
 	protected Location orgin;
+	
 	protected Location lmpDrp;
+	
+	private Location drp_Lmp;
 
 	Sign sign;
 	Lever lever;
 
-
+	String dir = null;
+	
 	public Local() {
 		
 		
@@ -30,27 +39,25 @@ public class Local {
 	
 	public Local(BlockPlaceEvent bpe) {
 
-		this.bpe = bpe;
+		this.orgin = bpe.getBlockPlaced().getLocation();
 
-		this.orgin = bpe.getBlock().getLocation();
+		this.world = bpe.getBlockPlaced().getLocation().getWorld();
+		
+		event = bpe;
 
-		this.world = bpe.getBlock().getWorld();
-
+		//this.debugLocal();
+		
 	}//Local
 
-	public Local(World world, BlockPlaceEvent bpe, Location orgin) {
+	public Local(World world, Location orgin) {
 
 		this.world = world;
-
-		this.bpe = bpe;
 
 		this.orgin = orgin;
 
 	}//Local
 
-	public Local(PlayerInteractEvent pie) {
-
-		this.pie = pie; 
+	public Local(PlayerInteractEvent pie) { 
 
 		this.world = pie.getClickedBlock().getWorld();
 
@@ -60,23 +67,31 @@ public class Local {
 
 	public Local(World world, PlayerInteractEvent pie, Location orgin) {
 
-		this.world = world;
-
-		this.pie = pie; 
+		this.world = world; 
 
 		this.orgin = orgin;
 
 	}//Local
 
 
+	public Local(SignChangeEvent event) {
+
+		this.orgin = event.getBlock().getLocation();
+
+		this.world = event.getBlock().getLocation().getWorld();
+	}
+
 	/****************************
 
 	 ****************************/
 	public Location setRelation(Location loc) {
 
-
+		loc.setWorld(world);
+		
 		Location lo = this.orgin.clone();
-
+		
+		lo.setWorld(world);
+		
 		return lo.add(loc);
 	}
 
@@ -95,17 +110,14 @@ public class Local {
 	
 	public String getFacing(Block block, Material mat) {
 		
-		String dir = null;
-		
-		String matString = mat.toString();
-		
-		switch(matString) {
+		switch(mat.toString()) {
 		
 		case "WALL_SIGN": 
 			
 			sign = new Sign(mat, block.getData());
 			
-			dir = String.valueOf(sign.getFacing());
+			dir = sign.getFacing().toString();
+			
 			
 			break;
 			
@@ -113,7 +125,7 @@ public class Local {
 			
 			lever = new Lever(mat, block.getData());
 			
-			dir = String.valueOf(lever.getFacing());
+			dir = lever.getFacing().toString();
 			
 			break;
 		
@@ -124,9 +136,23 @@ public class Local {
 
 	//Functions for Location for Dispenser LAMP based machine
 	public void setLmpDrp() {this.lmpDrp = new Location(world, 0, -1, 0); }
-
 	public Location getLmpDrp() {return this.lmpDrp;}
+	
+	public void setDrpLmp() {this.drp_Lmp = new Location(world, 0, 1, 0); }
+	public Location getDrpLmp() {return this.drp_Lmp;}
 
+	
+	public void debugLocal() {
+		
+		display = new Display(); 
+		
+		Player player = event.getPlayer();
+		
+		display.toPlayer(player, "Local created");
+		//display.toPlayer(player, world.toString());
+		//display.toPlayer(player, this.orgin.toString());
+		
+	}
 }//Local Class
 
 //Y - axis vertical (up/down), second number

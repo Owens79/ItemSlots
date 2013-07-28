@@ -3,7 +3,6 @@ package at.Owens79.ItemSlots;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
-
 import at.Owens79.ItemSlots.Locations.*;
 
 public class Build {
@@ -11,43 +10,61 @@ public class Build {
 	private ItemSlots plugin;
 	private BlockPlaceEvent event;
 	private Player player;
-	
-	private North north;
-	private South south;
-	private East east;
-	private West west;
-	
+
+	private North n;
+	private South s;
+	private East e;
+	private West w;
+
+	private Block sign;
 	private Block dropper;
 	private Block lever;
-	private Block sign;
-	
-	SignControl sgnCon;
-	
-	public Build(ItemSlots plugin, BlockPlaceEvent bpe) {
-		
-		this.plugin = plugin;
-		
-		this.event = bpe;
-		
-		this.player = event.getPlayer();
-		
-		this.dropper = null;
-		
-		this.lever = null;
-		
-		this.sign = null;
-		
-		sgnCon = new SignControl(plugin);
-	}
-	
-	public boolean isMachine() {
-		
-		LeverControl levCon = new LeverControl(plugin);
-		
-		DropperControl dropCon = new DropperControl(plugin);
-		
-		if (sgnCon.isWallSign(sign) && levCon.isLever(lever) && dropCon.isDropper(this.dropper)) {
+	private Block lamp;
 
+	SignControl sgnCon;
+
+	Local local;
+
+
+	public Build(ItemSlots plugin, BlockPlaceEvent event) {
+
+		this.event = event;
+
+		this.player = event.getPlayer();
+
+		this.setup(plugin);
+	}
+
+	private void setup(ItemSlots plugin) {
+
+		this.plugin = plugin;
+
+		this.dropper = null;
+
+		this.lever = null;
+
+		this.sign = null;
+
+		sgnCon = new SignControl(plugin);
+
+		local = new Local();
+
+	}//setup
+
+	public boolean isMachine() {
+
+		LeverControl levCon = new LeverControl(plugin);
+
+		DropperControl dropCon = new DropperControl(plugin);
+
+		LampControl lmpCon = new LampControl(plugin);
+		
+		
+
+		if (lmpCon.isLamp(lamp) && levCon.isLever(lever) && dropCon.isDropper(this.dropper)) {
+
+			this.sign = event.getBlock();
+			
 			this.setSign(sign);
 
 			return sgnCon.isMarkerValid();
@@ -56,62 +73,76 @@ public class Build {
 
 		else { return false; }
 	}
-	
+
 	public boolean PickMachine(String dir) {
-		
+
 		switch(dir.toUpperCase()) {
-			
+
 		case "NORTH" :
-			
-			north = new North(event);
-			
-			this.sign = north.getRelativeBlock(north.getLmpSgn());
-			
-			this.lever = north.getRelativeBlock(north.getLmpLev());
-			
-		break;
-		
+
+			n = new North(event);
+
+			n.setMacSgn();
+
+			this.lamp = n.getRelativeBlock(n.getSgnLmp());
+
+			this.lever = n.getRelativeBlock(n.getSgnLev());
+
+			this.dropper = n.getRelativeBlock(n.getSgnDrp());
+
+			break;
+
 		case "SOUTH" : 
-		
-			south = new South(event);
-			
-			this.sign = south.getRelativeBlock(south.getLmpSgn());
-			
-			this.lever = south.getRelativeBlock(south.getLmpLev());
-			
-		break;
-			
-		
+
+			s = new South(event);
+
+			s.setMacSgn();
+
+			this.lamp = s.getRelativeBlock(s.getSgnLmp());
+
+			this.lever = s.getRelativeBlock(s.getSgnLev());
+
+			this.dropper = s.getRelativeBlock(s.getSgnDrp());
+
+			break;
+
+
 		case "EAST" :
-			
-			east = new East(event);
-			
-			this.sign = east.getRelativeBlock(east.getLmpSgn());
-			
-			this.lever = east.getRelativeBlock(east.getLmpLev());
-			
-		break;
-		
+
+			e = new East(event);
+
+			e.setMacSgn();
+
+			this.lamp = e.getRelativeBlock(e.getSgnLmp());
+
+			this.lever = e.getRelativeBlock(e.getSgnLev());
+
+			this.dropper = e.getRelativeBlock(e.getSgnDrp());
+
+			break;
+
 		case "WEST" :
-			
-			west = new West(event);
-			
-			this.sign = west.getRelativeBlock(west.getLmpSgn());
-			
-			this.lever = west.getRelativeBlock(west.getLmpLev());
-			
-		break;
+
+			w = new West(event);
+
+			w.setMacSgn();
+
+			this.lamp = w.getRelativeBlock(w.getSgnLmp());
+
+			this.lever = w.getRelativeBlock(w.getSgnLev());
+
+			this.dropper = w.getRelativeBlock(w.getSgnDrp());
+
+			break;
+
+		default:
+
+			return false;
 		}
-		
-		Local local = new Local();
-		
-		local.setLmpDrp();
-		
-		this.dropper = local.getRelativeBlock(local.getLmpDrp());
-		
+
 		return this.isMachine();
 	}
-	
+
 	/*********************************************
 	 * canBuild()
 	 * 
@@ -124,43 +155,54 @@ public class Build {
 		return player.hasPermission("ItemSlots.Build") || player.isOp();
 
 	}// can build
-	
+
 	/*****************************************
-	 * isLampPlaced()
+	 * isSignPlaced()
 	 * 
 	 * @return is placed block a red stone lamp
 	 *****************************************/
-	public boolean isLampPlaced() {
+	public boolean isSignPlaced() {
 
-		LampControl lmpCon = new LampControl(plugin);
-		
-		// plugin.toCon(String.valueOf(event.getBlock().getType().equals(Material.REDSTONE_LAMP_OFF)));
-		
-		return lmpCon.isLamp(event.getBlock());
+		SignControl sgnCon = new SignControl(plugin);
+
+		return sgnCon.isWallSign(event.getBlock());
 
 	}// isLampPlaced
 	
+	public boolean isLeverPlaced() {
+
+		LeverControl levCon = new LeverControl(plugin);
+
+		return levCon.isLever(event.getBlock());
+
+	}// isLampPlaced
+	
+
 	private void setSign(Block sgn){
 
 		sgnCon.setSign(sgn);
 
 		sgnCon.setLines();
-		
+
 		sgnCon.printMarker();
-		
+
 		sgnCon.setLines();
-		
+
 		if(sgnCon.isMarkerValid()) {
-			
+
 			sgnCon.checkOddsHigh();
-			
+
 			sgnCon.checkOddsLow();
-			
+
 			sgnCon.checkPayHigh();
-			
+
 			sgnCon.checkPayLow();
 		}
+	}//setSign
+
+	public String getFacing() {
+
+		return local.getFacing(event.getBlock(), event.getBlock().getType());
 	}
-	
-	
+
 }//Build Class

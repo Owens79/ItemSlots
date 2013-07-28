@@ -3,7 +3,6 @@ package at.Owens79.ItemSlots;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Dropper;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 
@@ -17,15 +16,6 @@ public class DropperControl {
 	Dropper dropper;
 
 	ItemStack[] contents;
-
-	private Player player;
-
-	public DropperControl(ItemSlots plugin, Player player) {
-
-		this.player = player;
-		
-		
-	}
 
 	public DropperControl(ItemSlots plugin) {
 		
@@ -44,14 +34,14 @@ public class DropperControl {
 	 ********************************************************/
 	public boolean isDropper() {
 
-		return block.getType().equals(Material.DISPENSER);
+		return block.getType().equals(Material.DROPPER);
 
 	}
 
 
 	public boolean isDropper(Block block) {
 
-		return block.getType().equals(Material.DISPENSER);
+		return block.getType().equals(Material.DROPPER);
 
 	}
 
