@@ -30,7 +30,7 @@ public class SlotListener implements Listener {
 		
 		Build build = new Build(plugin, event);
 		
-		if(build.isSignPlaced() && build.canBuild()) {
+		if(build.isLeverPlaced() && build.canBuild()) {
 
 			if(build.PickMachine(build.getFacing())){
 				

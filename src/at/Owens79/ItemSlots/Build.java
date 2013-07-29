@@ -53,17 +53,13 @@ public class Build {
 
 	public boolean isMachine() {
 
-		LeverControl levCon = new LeverControl(plugin);
-
 		DropperControl dropCon = new DropperControl(plugin);
 
 		LampControl lmpCon = new LampControl(plugin);
 		
-		
+		SignControl signCon = new SignControl(plugin);
 
-		if (lmpCon.isLamp(lamp) && levCon.isLever(lever) && dropCon.isDropper(this.dropper)) {
-
-			this.sign = event.getBlock();
+		if (lmpCon.isLamp(lamp) && signCon.isWallSign(this.sign) && dropCon.isDropper(this.dropper)) {
 			
 			this.setSign(sign);
 
@@ -82,13 +78,20 @@ public class Build {
 
 			n = new North(event);
 
-			n.setMacSgn();
+			//n.setMacSign();
+			n.setMacLever();
 
-			this.lamp = n.getRelativeBlock(n.getSgnLmp());
+			//this.lamp = n.getRelativeBlock(n.getSgnLmp());
 
-			this.lever = n.getRelativeBlock(n.getSgnLev());
+			//this.lever = n.getRelativeBlock(n.getSgnLev());
 
-			this.dropper = n.getRelativeBlock(n.getSgnDrp());
+			//this.dropper = n.getRelativeBlock(n.getSgnDrp());
+			
+			this.sign = n.getRelativeBlock(n.getLevSgn());
+			
+			this.lamp = n.getRelativeBlock(n.getLevLmp());
+			
+			this.dropper = n.getRelativeBlock(n.getLevDrp());
 
 			break;
 
@@ -96,13 +99,21 @@ public class Build {
 
 			s = new South(event);
 
-			s.setMacSgn();
+			//s.setMacSign();
+			
+			s.setMacLever();
 
-			this.lamp = s.getRelativeBlock(s.getSgnLmp());
+			//this.lamp = s.getRelativeBlock(s.getSgnLmp());
 
-			this.lever = s.getRelativeBlock(s.getSgnLev());
+			//this.lever = s.getRelativeBlock(s.getSgnLev());
 
-			this.dropper = s.getRelativeBlock(s.getSgnDrp());
+			//this.dropper = s.getRelativeBlock(s.getSgnDrp());
+			
+			this.sign = s.getRelativeBlock(s.getLevSgn());
+			
+			this.lamp = s.getRelativeBlock(s.getLevLmp());
+			
+			this.dropper = s.getRelativeBlock(s.getLevDrp());
 
 			break;
 
@@ -111,28 +122,44 @@ public class Build {
 
 			e = new East(event);
 
-			e.setMacSgn();
+			//e.setMacSign();
 
-			this.lamp = e.getRelativeBlock(e.getSgnLmp());
+			//this.lamp = e.getRelativeBlock(e.getSgnLmp());
 
-			this.lever = e.getRelativeBlock(e.getSgnLev());
+			//this.lever = e.getRelativeBlock(e.getSgnLev());
 
-			this.dropper = e.getRelativeBlock(e.getSgnDrp());
+			//this.dropper = e.getRelativeBlock(e.getSgnDrp());
 
+			e.setMacLever();
+			
+			this.sign = e.getRelativeBlock(e.getLevSgn());
+			
+			this.lamp = e.getRelativeBlock(e.getLevLmp());
+			
+			this.dropper = e.getRelativeBlock(e.getLevDrp());
+			
 			break;
 
 		case "WEST" :
 
 			w = new West(event);
 
-			w.setMacSgn();
+			//w.setMacSign();
 
-			this.lamp = w.getRelativeBlock(w.getSgnLmp());
+			//this.lamp = w.getRelativeBlock(w.getSgnLmp());
 
-			this.lever = w.getRelativeBlock(w.getSgnLev());
+			//this.lever = w.getRelativeBlock(w.getSgnLev());
 
-			this.dropper = w.getRelativeBlock(w.getSgnDrp());
+			//this.dropper = w.getRelativeBlock(w.getSgnDrp());
 
+			w.setMacLever();
+			
+			this.sign = w.getRelativeBlock(w.getLevSgn());
+			
+			this.lamp = w.getRelativeBlock(w.getLevLmp());
+			
+			this.dropper = w.getRelativeBlock(w.getLevDrp());
+			
 			break;
 
 		default:

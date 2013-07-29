@@ -54,6 +54,13 @@ public class East extends Local{
 	public Location getLmpLev() {return this.lmp_Lev;}
 
 	public Location getLmpSgn() {return this.lmp_Sgn;}
+	
+	public void setMacLamp() {
+		
+		this.setLmpLev();
+		this.setLmpDrp();
+		this.setLmpSgn();
+	}
 
 	// X = +Back -Forward
 	// Y = +Up -Down
@@ -72,6 +79,13 @@ public class East extends Local{
 
 	public Location getLevDrp() { return this.lev_Dis; }
 	
+	public void setMacLever() {
+		
+		this.setLevLmp();
+		this.setLevSgn();
+		this.setLevDrp();
+	}
+	
 	// X = +Back -Forward
 	// Y = +Up -Down
 	// Z = +Left -Right
@@ -84,6 +98,13 @@ public class East extends Local{
 	public Location getDrpSgn() {return this.drp_Sgn;}
 	
 	public Location getDrpLev() {return this.drp_Lev;}
+	
+	public void setMacDropper() {
+		
+		this.setDrpLev();
+		this.setDrpLmp();
+		this.setDrpSgn();
+	}
 
 	// X = +Back -Forward
 	// Y = +Up -Down
@@ -102,7 +123,7 @@ public class East extends Local{
 	
 	public Location getSgnDrp() {return this.sgn_Drp;}
 	
-	public void setMacSgn(){
+	public void setMacSign(){
 		
 		this.setSgnLmp();
 		this.setSgnLev();

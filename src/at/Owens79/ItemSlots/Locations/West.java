@@ -14,7 +14,7 @@ public class West extends Local{
 	//Lever Based
 	private Location lev_Lmp; //Lamp
 	private Location lev_Sgn; //Sign
-	private Location lev_Dis; //Dispenser
+	private Location lev_Drp; //Dispenser
 	
 	//Dropper Based
 	private Location drp_Sgn;//Sign
@@ -54,6 +54,13 @@ public class West extends Local{
 	public Location getLmpLev() {return this.lmp_Lev;}
 
 	public Location getLmpSgn() {return this.lmp_Sgn;}
+	
+	public void setMacLamp() {
+		
+		this.setLmpLev();
+		this.setLmpDrp();
+		this.setLmpSgn();
+	}
 
 	// X = +Forward -Back 
 	// Y = +Up  -Down
@@ -64,13 +71,20 @@ public class West extends Local{
 
 	public void setLevSgn() {  this.lev_Sgn = new Location(world, 0 , 1, -1); }
 
-	public void setLevDrp() { this.lev_Dis = new Location(world, 1, -1, -1); }
+	public void setLevDrp() { this.lev_Drp = new Location(world, 1, -1, -1); }
 
 	public Location getLevLmp() { return this.lev_Lmp; }
 
 	public Location getLevSgn() { return this.lev_Sgn; }
 
-	public Location getLevDrp() { return this.lev_Dis; }
+	public Location getLevDrp() { return this.lev_Drp; }
+	
+	public void setMacLever() {
+		
+		this.setLevLmp();
+		this.setLevSgn();
+		this.setLevDrp();
+	}
 	
 	// X = +Forward -Back 
 	// Y = +Up  -Down
@@ -84,6 +98,13 @@ public class West extends Local{
 	public Location getDrpSgn() {return this.drp_Sgn;}
 	
 	public Location getDrpLev() {return this.drp_Lev;}
+	
+	public void setMacDropper() {
+		
+		this.setDrpLev();
+		this.setDrpLmp();
+		this.setDrpSgn();
+	}
 	
 	// X = +Forward -Back 
 	// Y = +Up  -Down
@@ -102,7 +123,7 @@ public class West extends Local{
 	
 	public Location getSgnDrp() {return this.sgn_Drp;}
 
-	public void setMacSgn(){
+	public void setMacSign(){
 		
 		this.setSgnLmp();
 		this.setSgnLev();

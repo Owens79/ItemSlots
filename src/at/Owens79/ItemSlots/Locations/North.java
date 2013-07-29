@@ -45,8 +45,6 @@ public class North extends Local{
 	// Y = +Up -Down
 	// Z = +Forward -Back
 
-
-
 	//Lamp Base
 	public void setLmpLev() {this.lmp_Lev = new Location(world, -1, 0, -1);}
 
@@ -55,6 +53,13 @@ public class North extends Local{
 	public Location getLmpLev() {return this.lmp_Lev;}
 
 	public Location getLmpSgn() {return this.lmp_Sgn;}
+	
+	public void setMacLamp() {
+		
+		this.setLmpLev();
+		this.setLmpDrp();
+		this.setLmpSgn();
+	}
 
 	// X = +Left -Right
 	// Y = +Up -Down
@@ -73,6 +78,13 @@ public class North extends Local{
 
 	public Location getLevDrp() { return this.lev_Drp; }
 	
+	public void setMacLever() {
+		
+		this.setLevLmp();
+		this.setLevSgn();
+		this.setLevDrp();
+	}
+	
 	// X = +Left -Right
 	// Y = +Up -Down
 	// Z = +Forward -Back
@@ -85,6 +97,13 @@ public class North extends Local{
 	public Location getDrpSgn() {return this.drp_Sgn;}
 	
 	public Location getDrpLev() {return this.drp_Lev;}
+	
+	public void setMacDropper() {
+		
+		this.setDrpLev();
+		this.setDrpLmp();
+		this.setDrpSgn();
+	}
 	
 	// X = +Left -Right
 	// Y = +Up -Down
@@ -103,7 +122,7 @@ public class North extends Local{
 	
 	public Location getSgnDrp() {return this.sgn_Drp;}
 	
-	public void setMacSgn(){
+	public void setMacSign(){
 		
 		this.setSgnLmp();
 		this.setSgnLev();
