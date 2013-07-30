@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.material.Dispenser;
 import org.bukkit.material.Lever;
 import org.bukkit.material.Sign;
 
@@ -23,12 +24,13 @@ public class Local {
 	
 	protected Location orgin;
 	
-	protected Location lmpDrp;
+	protected Location lmpDis;
 	
 	private Location drp_Lmp;
 
 	Sign sign;
 	Lever lever;
+	Dispenser dispenser;
 
 	String dir = null;
 	
@@ -129,14 +131,20 @@ public class Local {
 			
 			break;
 		
+		case "DISPENSER" :
+			
+			dispenser = new Dispenser(mat, block.getData());
+			
+			dir = dispenser.getFacing().toString();
+		
 		}//switch
 		
 		return dir;
 	}
 
 	//Functions for Location for Dispenser LAMP based machine
-	public void setLmpDrp() {this.lmpDrp = new Location(world, 0, -1, 0); }
-	public Location getLmpDrp() {return this.lmpDrp;}
+	public void setLmpDrp() {this.lmpDis = new Location(world, 0, -1, 0); }
+	public Location getLmpDrp() {return this.lmpDis;}
 	
 	public void setDrpLmp() {this.drp_Lmp = new Location(world, 0, 1, 0); }
 	public Location getDrpLmp() {return this.drp_Lmp;}

@@ -31,7 +31,7 @@ public class South extends Local{
 
 	}
 	
-	South (PlayerInteractEvent event){
+	public South (PlayerInteractEvent event){
 		
 		super(event);
 	}

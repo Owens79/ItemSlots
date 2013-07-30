@@ -27,6 +27,8 @@ public class LeverControl {
 
 	public LeverControl(ItemSlots plugin, PlayerInteractEvent event) {
 
+		this.plugin = plugin;
+		
 		this.event = event;
 
 	}

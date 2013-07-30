@@ -32,7 +32,7 @@ public class West extends Local{
 
 	}
 
-	West (PlayerInteractEvent event){
+	public West (PlayerInteractEvent event){
 
 		super(event);
 	}

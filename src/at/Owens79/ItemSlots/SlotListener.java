@@ -1,8 +1,6 @@
 package at.Owens79.ItemSlots;
 
 import java.util.Random;
-
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -45,11 +43,17 @@ public class SlotListener implements Listener {
 	}//construct (BlockPlaceEvent event)
 	
 	@EventHandler
-	public void play(PlayerInteractEvent event) {
+	public void betting(final PlayerInteractEvent event) {
 		
-		if(event.getClickedBlock().getType().equals(Material.LEVER)) {
+		Play play = new Play(plugin, event, this.ran);
+		
+		if( play.didActivateLever() && play.canUse()) {
 			
-			
+			if(play.PickMachine(play.getFacing())) {
+				
+				play.runMac(ran.nextInt(100));
+			}
 		}
+		
 	}
 }//SlotsListener class 
