@@ -4,6 +4,10 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 import at.Owens79.ItemSlots.Locations.*;
+import at.Owens79.ItemSlots.Parts.DispenserControl;
+import at.Owens79.ItemSlots.Parts.LampControl;
+import at.Owens79.ItemSlots.Parts.LeverControl;
+import at.Owens79.ItemSlots.Parts.SignControl;
 
 public class Build {
 

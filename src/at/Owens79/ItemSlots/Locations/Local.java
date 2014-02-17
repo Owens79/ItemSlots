@@ -51,14 +51,6 @@ public class Local {
 		
 	}//Local
 
-	public Local(World world, Location orgin) {
-
-		this.world = world;
-
-		this.orgin = orgin;
-
-	}//Local
-
 	public Local(PlayerInteractEvent pie) { 
 
 		this.world = pie.getClickedBlock().getWorld();
@@ -66,15 +58,6 @@ public class Local {
 		this.orgin = pie.getClickedBlock().getLocation();
 
 	}//Local
-
-	public Local(World world, PlayerInteractEvent pie, Location orgin) {
-
-		this.world = world; 
-
-		this.orgin = orgin;
-
-	}//Local
-
 
 	public Local(SignChangeEvent event) {
 
@@ -90,23 +73,23 @@ public class Local {
 
 		loc.setWorld(world);
 		
-		Location lo = this.orgin.clone();
+		Location loca = this.orgin.clone();
 		
-		lo.setWorld(world);
+		loca.setWorld(world);
 		
-		return lo.add(loc);
+		return loca.add(loc);
 	}
 
 	/****************************
 	getRelativeBlock()
 
-	@param Location loc
+	@param Location part
 
-	@return the block at loc
+	@return the block at part
 	 ****************************/
-	public Block getRelativeBlock(Location loc) {
+	public Block getRelativeBlock(Location part) {
 
-		return setRelation(loc).getBlock();
+		return setRelation(part).getBlock();
 	}
 
 	

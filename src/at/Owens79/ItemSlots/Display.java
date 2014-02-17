@@ -118,11 +118,16 @@ public class Display {
 	********************************************************/
 	public void buildMessage(Player player) {
 
-		toPlayer(player, plugin.getConfig().getString(PathNames.BUILT_MSG));
+		this.toPlayer(player, plugin.getConfig().getString(PathNames.BUILT_MSG));
 		
-		toCon(plugin.getConfig().getString(PathNames.BUILT_MSG) + " by " + player.getDisplayName());
+		this.toCon(plugin.getConfig().getString(PathNames.BUILT_MSG) + " by " + player.getDisplayName());
 	}
 
+	
+	public void noBuildMessage(Player player) {
+		
+		this.toPlayer(player, plugin.getConfig().getString(PathNames.NO_BUILD_MSG));
+	}
 	
 	/********************************************************
 	 destroyMessage(Player player)

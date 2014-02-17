@@ -4,6 +4,7 @@ Machine_Marker: '[777]'
 Base_Odds: 5
 Base_Pay_Out: 2
 Built_Msg: Slot Machine Built
+Cannot_Build_Msg: Part placement incorrect
 Destory_Msg: Slot Machine Destroyed
 Win_Msg: You Win
 Lose_Msg: You Lose

@@ -5,6 +5,10 @@ import java.util.Random;
 import org.bukkit.block.Block;
 import org.bukkit.event.player.PlayerInteractEvent;
 import at.Owens79.ItemSlots.Locations.*;
+import at.Owens79.ItemSlots.Parts.DispenserControl;
+import at.Owens79.ItemSlots.Parts.LampControl;
+import at.Owens79.ItemSlots.Parts.LeverControl;
+import at.Owens79.ItemSlots.Parts.SignControl;
 
 
 public class Play {
@@ -25,6 +29,8 @@ public class Play {
 	private Block dispenser;
 	private Block sign;
 	private Block lamp;
+	@SuppressWarnings("unused")
+	private Block lever;
 
 	int odds;
 	int pay;
@@ -77,6 +83,8 @@ public class Play {
 
 		if (sgnCon.isWallSign(sign) && lmpCon.isLamp(lamp) && dCon.isDispenser(this.dispenser)) {
 
+			//this.display.toPlayer(event.getPlayer(), String.valueOf(sgnCon.isWallSign(sign)));
+			
 			this.setSign(sign);
 
 			return sgnCon.isMarkerValid();
@@ -91,21 +99,21 @@ public class Play {
 
 	****************************/
 	public boolean PickMachine(String dir) {
-
+		
 		switch(dir.toUpperCase()) {
 
 		case "NORTH" :
-
+			
 			n = new North(event);
 
 			n.setMacLever();
-
+			
 			this.sign = n.getRelativeBlock(n.getLevSgn());
-
+			
 			this.lamp = n.getRelativeBlock(n.getLevLmp());
-
+			
 			this.dispenser = n.getRelativeBlock(n.getLevDrp());
-
+			
 			break; //North
 
 		case "SOUTH" : 
@@ -153,9 +161,15 @@ public class Play {
 
 		default:
 
+			//this.display.toPlayer(event.getPlayer(), "false");
+			
 			return false;
 		}
 
+		this.display.toPlayer(event.getPlayer(), String.valueOf(sign.getType()));
+		
+		this.lever = event.getClickedBlock();
+		
 		return this.isMachine();
 	
 	}//PickMachine
@@ -190,7 +204,7 @@ public class Play {
 		Long pause = 10L;
 
 		lmpCon.lampOn(lamp);
-
+		
 		@SuppressWarnings("unused")
 		Delay del = new Delay(plugin, pause){
 

@@ -33,6 +33,7 @@ public class North extends Local{
 
 	public North (PlayerInteractEvent event){
 
+		super(event);
 		
 	}
 	

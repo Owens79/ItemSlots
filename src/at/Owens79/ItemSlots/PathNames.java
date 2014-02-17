@@ -26,5 +26,7 @@ public class PathNames {
 	
 	public static final String BUILT_MSG = "Built_Msg";
 	
+	public static final String NO_BUILD_MSG = "Cannot_Build_Msg";
+	
 	public static final String DESTROY_MSG = "Destory_Msg";
 }
