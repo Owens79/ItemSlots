@@ -6,6 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import at.Owens79.ItemSlots.Parts.LampControl;
+
 public class SlotListener implements Listener {
 
 	ItemSlots plugin;
@@ -30,24 +32,29 @@ public class SlotListener implements Listener {
 
 		if(build.isLeverPlaced()) {
 
-			//this.display.toPlayer(event.getPlayer(), "Lever Placed");
-			
-			//this.display.toPlayer(event.getPlayer(), String.valueOf(build.canBuild()));
-			
 			if (build.canBuild()) {
-				
-				if(build.PickMachine(build.getFacing())){
 
-					//display.toPlayer(event.getPlayer(), String.valueOf(build.PickMachine(build.getFacing())));
+				build.PickMachine(build.getFacing());
+				
+				if(build.isMachine()){
 
 					this.display.buildMessage(event.getPlayer());
 
 				}//if machine is built
 
+			}//can build
+
+		}//Lever is placed
+
+		else {
+			FakeMachines fake = new FakeMachines(event, plugin);
+			
+			if(fake.lampMachine()) {
+				
+				event.setCancelled(true);
 			}
-
-		}//Lamp is placed
-
+		}
+		
 	}//construct (BlockPlaceEvent event)
 
 	@EventHandler
@@ -56,11 +63,7 @@ public class SlotListener implements Listener {
 		Play play = new Play(plugin, event, this.ran);
 
 		if( play.didActivateLever() && play.canUse()) {
-			
-			//this.display.toPlayer(event.getPlayer(), String.valueOf(play.canUse()));
 
-			//this.display.toPlayer(event.getPlayer(), play.getFacing());
-			
 			if(play.PickMachine(play.getFacing())) {
 
 				play.runMac(ran.nextInt(100));
@@ -68,4 +71,23 @@ public class SlotListener implements Listener {
 		}
 
 	}
+
+	@EventHandler
+	public void noPiston (BlockPlaceEvent event) {
+		
+		FakeMachines fake = new FakeMachines(event, plugin);
+		LampControl lampCon = new LampControl(plugin);
+		
+		if(lampCon.isLamp(event.getBlockPlaced())) {
+			
+			if (fake.isPistonMachine(event)) {
+				
+				event.setCancelled(true);
+			}
+		}
+		
+		
+		
+	}
+	
 }//SlotsListener class 

@@ -82,8 +82,6 @@ public class Play {
 	public boolean isMachine() {
 
 		if (sgnCon.isWallSign(sign) && lmpCon.isLamp(lamp) && dCon.isDispenser(this.dispenser)) {
-
-			//this.display.toPlayer(event.getPlayer(), String.valueOf(sgnCon.isWallSign(sign)));
 			
 			this.setSign(sign);
 
@@ -106,8 +104,6 @@ public class Play {
 			
 			n = new North(event);
 
-			n.setMacLever();
-			
 			this.sign = n.getRelativeBlock(n.getLevSgn());
 			
 			this.lamp = n.getRelativeBlock(n.getLevLmp());
@@ -119,8 +115,6 @@ public class Play {
 		case "SOUTH" : 
 
 			s = new South(event);
-
-			s.setMacLever();
 
 			this.sign = s.getRelativeBlock(s.getLevSgn());
 
@@ -135,8 +129,6 @@ public class Play {
 
 			e = new East(event);
 
-			e.setMacLever();//east
-
 			this.sign = e.getRelativeBlock(e.getLevSgn());
 
 			this.lamp = e.getRelativeBlock(e.getLevLmp());
@@ -149,8 +141,6 @@ public class Play {
 
 			w = new West(event);
 
-			w.setMacLever();
-
 			this.sign = w.getRelativeBlock(w.getLevSgn());
 
 			this.lamp = w.getRelativeBlock(w.getLevLmp());
@@ -160,13 +150,9 @@ public class Play {
 			break;
 
 		default:
-
-			//this.display.toPlayer(event.getPlayer(), "false");
 			
 			return false;
 		}
-
-		this.display.toPlayer(event.getPlayer(), String.valueOf(sign.getType()));
 		
 		this.lever = event.getClickedBlock();
 		

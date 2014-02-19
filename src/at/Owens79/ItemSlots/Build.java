@@ -56,7 +56,7 @@ public class Build {
 
 		sgnCon = new SignControl(plugin);
 
-		local = new Local();
+		local = new Local(event);
 
 	}//setup
 
@@ -79,13 +79,13 @@ public class Build {
 
 		}
 
-		else { return false; }
+		else {return false;}
 	}
 
 	/****************************
 
 	****************************/
-	public boolean PickMachine(String dir) {
+	public void PickMachine(String dir) {
 
 		switch(dir.toUpperCase()) {
 
@@ -93,8 +93,6 @@ public class Build {
 
 			n = new North(event);
 
-			n.setMacLever();
-			
 			this.sign = n.getRelativeBlock(n.getLevSgn());
 			
 			this.lamp = n.getRelativeBlock(n.getLevLmp());
@@ -106,8 +104,6 @@ public class Build {
 		case "SOUTH" : 
 
 			s = new South(event);
-			
-			s.setMacLever();
 			
 			this.sign = s.getRelativeBlock(s.getLevSgn());
 			
@@ -121,8 +117,6 @@ public class Build {
 		case "EAST" :
 
 			e = new East(event);
-
-			e.setMacLever();
 			
 			this.sign = e.getRelativeBlock(e.getLevSgn());
 			
@@ -135,8 +129,6 @@ public class Build {
 		case "WEST" :
 
 			w = new West(event);
-
-			w.setMacLever();
 			
 			this.sign = w.getRelativeBlock(w.getLevSgn());
 			
@@ -147,11 +139,7 @@ public class Build {
 			break;
 
 		default:
-
-			return false;
 		}
-
-		return this.isMachine();
 	}
 
 	/*********************************************
@@ -222,5 +210,6 @@ public class Build {
 
 		return local.getFacing(event.getBlock(), event.getBlock().getType());
 	}
+
 
 }//Build Class

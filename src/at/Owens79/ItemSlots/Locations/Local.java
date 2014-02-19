@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,34 +20,31 @@ public class Local {
 
 	protected World world;
 	private BlockPlaceEvent event;
-	
 	Display display;
 	
 	protected Location orgin;
 	
-	protected Location lmpDis;
-	
-	private Location drp_Lmp;
-
 	Sign sign;
 	Lever lever;
 	Dispenser dispenser;
 
 	String dir = null;
 	
-	public Local() {
-		
-		
-	}
+	/****************************
+	Local : constructor
 	
+	@param BlockPlaceEvent bpe
+	
+	Sets the location and world
+	 ****************************/
 	public Local(BlockPlaceEvent bpe) {
 
 		this.orgin = bpe.getBlockPlaced().getLocation();
 
 		this.world = bpe.getBlockPlaced().getLocation().getWorld();
-		
-		event = bpe;
 
+		this.event = bpe;
+		
 		//this.debugLocal();
 		
 	}//Local
@@ -61,6 +59,13 @@ public class Local {
 
 	public Local(SignChangeEvent event) {
 
+		this.orgin = event.getBlock().getLocation();
+
+		this.world = event.getBlock().getLocation().getWorld();
+	}
+
+	public Local(BlockPistonExtendEvent event) {
+		
 		this.orgin = event.getBlock().getLocation();
 
 		this.world = event.getBlock().getLocation().getWorld();
@@ -126,11 +131,11 @@ public class Local {
 	}
 
 	//Functions for Location for Dispenser LAMP based machine
-	public void setLmpDrp() {this.lmpDis = new Location(world, 0, -1, 0); }
-	public Location getLmpDrp() {return this.lmpDis;}
+	public Location getLmpDis() {return new Location(world, 0, -1, 0);}
 	
-	public void setDrpLmp() {this.drp_Lmp = new Location(world, 0, 1, 0); }
-	public Location getDrpLmp() {return this.drp_Lmp;}
+	public Location getDisLmp() {return new Location(world, 0, 1, 0);}
+	
+	public Location getFakeLmpSgn() {return new Location (world, 0, 1, 0);}
 
 	
 	public void debugLocal() {
