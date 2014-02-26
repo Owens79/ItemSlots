@@ -3,10 +3,13 @@ package at.Owens79.ItemSlots;
 import java.util.Random;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import at.Owens79.ItemSlots.Parts.DispenserControl;
 import at.Owens79.ItemSlots.Parts.LampControl;
+import at.Owens79.ItemSlots.Parts.SignControl;
 
 public class SlotListener implements Listener {
 
@@ -35,7 +38,7 @@ public class SlotListener implements Listener {
 			if (build.canBuild()) {
 
 				build.PickMachine(build.getFacing());
-				
+
 				if(build.isMachine()){
 
 					this.display.buildMessage(event.getPlayer());
@@ -43,18 +46,58 @@ public class SlotListener implements Listener {
 				}//if machine is built
 
 			}//can build
+			
+			else {
+				
+				event.setCancelled(true);
+			}
 
 		}//Lever is placed
 
 		else {
+
 			FakeMachines fake = new FakeMachines(event, plugin);
-			
-			if(fake.lampMachine()) {
-				
-				event.setCancelled(true);
+			LampControl lampCon = new LampControl(plugin);
+
+
+			if (lampCon.isLamp(event.getBlockPlaced())) {
+
+				if(fake.isLampMachine()){
+
+					event.setCancelled(true);
+				}
+
+			}
+
+			else {
+
+				SignControl sgnCon = new SignControl(plugin);
+
+				if(sgnCon.isWallSign(event.getBlockPlaced())) {
+
+					if(fake.isSignMachine(build.getFacing())){
+
+						event.setCancelled(true);
+
+					}
+
+				}
+
+				else {
+
+					DispenserControl disCon = new DispenserControl(plugin);
+
+					if(disCon.isDispenser(event.getBlockPlaced())) {
+
+						if(fake.isDispenserMachine()){
+
+							event.setCancelled(true);
+						}
+					}
+				}
+
 			}
 		}
-		
 	}//construct (BlockPlaceEvent event)
 
 	@EventHandler
@@ -73,21 +116,64 @@ public class SlotListener implements Listener {
 	}
 
 	@EventHandler
-	public void noPiston (BlockPlaceEvent event) {
-		
-		FakeMachines fake = new FakeMachines(event, plugin);
-		LampControl lampCon = new LampControl(plugin);
-		
-		if(lampCon.isLamp(event.getBlockPlaced())) {
-			
-			if (fake.isPistonMachine(event)) {
-				
+	public void breaking(final BlockBreakEvent event) {
+
+		Remove rem = new Remove(event, plugin);
+		display = new Display(plugin);
+
+		if(rem.isLeverBroken()) {
+
+			if(rem.canBreak()) {
+
+				rem.PickMachine(rem.getFacing());
+
+				if (rem.isMachine()) {
+
+					display.destroyMessage(event.getPlayer());
+				}
+			}// can break
+
+			else { 
+
 				event.setCancelled(true);
 			}
-		}
-		
-		
-		
-	}
-	
+
+		}//broke lever
+
+		else {
+
+
+
+			if (rem.isLampBroken()) {
+
+				if (rem.isLampMachine()) {
+
+					event.setCancelled(true);
+				}
+
+			}//lamp broken
+
+			else if (rem.isSignBroken()) {
+
+				if (rem.isSignMachine(rem.getFacing())) {
+
+					event.setCancelled(true);
+				}
+
+
+			}//sign broke
+
+			else if (rem.isDispenserBroken()) {
+
+				if (rem.isDispenserMachine()) {
+
+					event.setCancelled(true);
+				}
+
+			}//dispenser broken
+
+		}//not lever broke
+
+	}//Block break
+
 }//SlotsListener class 

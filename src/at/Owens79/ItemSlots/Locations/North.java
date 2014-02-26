@@ -1,7 +1,7 @@
 package at.Owens79.ItemSlots.Locations;
 
 import org.bukkit.Location;
-import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -24,15 +24,17 @@ public class North extends Local{
 		
 		super(event);
 	}
-	
-	public North(BlockPistonExtendEvent pe) {
-		super(pe);
-	}
+
 
 
 	// X = +Left -Right
 	// Y = +Up -Down
 	// Z = +Forward -Back
+
+	public North(BlockBreakEvent event) {
+		
+		super(event);
+	}
 
 	//Lamp Base
 	public Location getLmpLev() {return new Location(world, -1, 0, -1);}

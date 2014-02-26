@@ -1,7 +1,7 @@
 package at.Owens79.ItemSlots.Locations;
 
 import org.bukkit.Location;
-import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -23,10 +23,12 @@ public class South extends Local{
 		
 		super(event);
 	}
-	
-	public South(BlockPistonExtendEvent pe) {
-		super(pe);
+		
+	public South(BlockBreakEvent event) {
+		
+		super(event);
 	}
+
 	//Locations for lamp based machine
 	
 	// X = -Left +Right

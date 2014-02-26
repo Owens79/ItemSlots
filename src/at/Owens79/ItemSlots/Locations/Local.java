@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -64,8 +64,8 @@ public class Local {
 		this.world = event.getBlock().getLocation().getWorld();
 	}
 
-	public Local(BlockPistonExtendEvent event) {
-		
+	public Local(BlockBreakEvent event) {
+				
 		this.orgin = event.getBlock().getLocation();
 
 		this.world = event.getBlock().getLocation().getWorld();
@@ -100,7 +100,7 @@ public class Local {
 	
 	public String getFacing(Block block, Material mat) {
 		
-		switch(mat.toString()) {
+		switch(mat.toString().toUpperCase()) {
 		
 		case "WALL_SIGN": 
 			
@@ -136,6 +136,8 @@ public class Local {
 	public Location getDisLmp() {return new Location(world, 0, 1, 0);}
 	
 	public Location getFakeLmpSgn() {return new Location (world, 0, 1, 0);}
+	
+	public Location getFakeSignLmp() {return new Location (world, 0 ,-1, 0);}
 
 	
 	public void debugLocal() {

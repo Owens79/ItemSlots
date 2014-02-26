@@ -1,7 +1,6 @@
 package at.Owens79.ItemSlots;
 
 import org.bukkit.block.Block;
-import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import at.Owens79.ItemSlots.Locations.*;
@@ -29,19 +28,89 @@ public class FakeMachines {
 
 
 
-
 	FakeMachines(BlockPlaceEvent e, ItemSlots plug) {
 
 		this.plugin = plug;
 		this.event = e;
 	}
-
-	public void signMachine(String dir) {
-
-
+	
+	private boolean isSignMac(Block la1, Block lev, Block dis) {
+		
+		this.lampCon = new LampControl(plugin);
+		this.levCon = new LeverControl(plugin);
+		this.disCon = new DispenserControl(plugin);
+		
+		return levCon.isLever(lev)&& disCon.isDispenser(dis) && lampCon.isLamp(la1);
+		
 	}
 
-	public boolean lampMachine() {
+	public boolean isSignMachine(String dir) {
+
+		Block lamp = null;
+		Block dis = null;
+		Block lev = null;
+		
+		switch(dir.toUpperCase()) {
+		
+		case "NORTH" :
+
+			north = new North(event);
+			
+			lamp = north.getRelativeBlock(north.getSgnLmp());
+								
+			dis = north.getRelativeBlock(north.getSgnDrp());
+			
+			lev = north.getRelativeBlock(north.getSgnLev());
+
+			break;
+
+		case "SOUTH" : 
+
+			south = new South(event);
+
+			lamp = south.getRelativeBlock(south.getSgnLmp());
+					
+			dis = south.getRelativeBlock(south.getSgnDrp());
+			
+			lev = south.getRelativeBlock(south.getSgnLev());
+
+			break;
+
+
+		case "EAST" :
+
+			east = new East(event);
+			
+			lamp = east.getRelativeBlock(east.getSgnLmp());
+			
+			dis = east.getRelativeBlock(east.getSgnDrp());
+			
+			lev = east.getRelativeBlock(east.getSgnLev());
+		
+			break;
+
+		case "WEST" :
+
+			west = new West(event);
+
+			lamp = west.getRelativeBlock(west.getSgnLmp());
+			
+			dis = west.getRelativeBlock(west.getSgnDrp());
+			
+			lev = west.getRelativeBlock(west.getSgnLev());
+
+			break;
+
+		default:
+		
+		}
+		bool = this.isSignMac(lamp, lev, dis);
+		
+		return this.bool;
+	}
+	
+
+	public boolean isLampMachine() {
 
 		lampCon = new LampControl(plugin);
 		signCon = new SignControl(plugin);
@@ -117,23 +186,72 @@ public class FakeMachines {
 		return bool;
 	}//lampMachine
 
-	public boolean isPistonMachine(BlockPlaceEvent event) {
-
-		local = new Local(event);
+	
+	public boolean isDispenserMachine() {
+		
+		levCon = new LeverControl(plugin);
 		signCon = new SignControl(plugin);
 
-		Block sign = local.getRelativeBlock(local.getFakeLmpSgn());
+		local = new Local(event);
+		north = new North(event);
+		south = new South(event);
+		east = new East(event);
+		west = new West(event);
+		
+		
 
-		if(signCon.isWallSign(sign)) {
-
-			signCon.setSign(sign);
-
-			return signCon.isMarkerValid();
-		}
-
-		else {return false;}
+			Block sign = null;
+			Block lever = null;
 
 
-	}//lampMachine
+			sign = north.getRelativeBlock(north.getDrpSgn());
+			lever = north.getRelativeBlock(north.getDrpLev());
 
+			if(signCon.isWallSign(sign)&& levCon.isLever(lever)) {
+
+				signCon.setSign(sign);
+				bool = signCon.isMarkerValid();
+			}
+
+			else {
+
+				sign = south.getRelativeBlock(south.getDrpSgn());
+				lever = south.getRelativeBlock(south.getDrpLev());
+
+				if(signCon.isWallSign(sign)&& levCon.isLever(lever)) {
+
+					signCon.setSign(sign);
+					bool = signCon.isMarkerValid();	
+				}
+
+				else {
+
+					sign = east.getRelativeBlock(east.getDrpSgn());
+					lever = east.getRelativeBlock(east.getDrpLev());
+
+					if(signCon.isWallSign(sign)&& levCon.isLever(lever)) {
+
+						signCon.setSign(sign);
+						bool = signCon.isMarkerValid();
+					}
+
+					else {
+
+						sign = west.getRelativeBlock(west.getDrpSgn());
+						lever = west.getRelativeBlock(west.getDrpLev());
+
+						if(signCon.isWallSign(sign)&& levCon.isLever(lever)) {
+
+							signCon.setSign(sign);
+							bool = signCon.isMarkerValid();
+
+						}
+
+						else {bool = false;}
+					}
+				}
+			}
+ 
+		return bool;
+	}
 }//class

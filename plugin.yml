@@ -19,4 +19,4 @@ permissions:
         default: op
     ItemSlots.Use:
         description: allows the use of a machine
-        default: true
+        default: op
